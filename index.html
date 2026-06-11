@@ -42,17 +42,69 @@
             100% { background-position: 0% 50%; }
         }
 
-        .orb {
+        /* EKRAN BLOKADY CAŁEJ STRONY */
+        #site-lock-screen {
             position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            z-index: -1;
-            animation: floatOrbs 25s infinite alternate ease-in-out;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #0b0f19;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .orb-1 { width: 400px; height: 400px; background: #4f46e5; top: -10px; left: -10px; }
-        .orb-2 { width: 500px; height: 500px; background: #06b6d4; bottom: -5px; right: -5px; animation-delay: -5s; }
+        .lock-box {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .lock-box h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #06b6d4, #4f46e5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lock-box input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .lock-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #4f46e5, #06b6d4);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        /* UKRYTA ZAWARTOŚĆ DO CZASU WPISANIA HASŁA */
+        #main-content-wrapper { display: none; }
 
         /* NAWIGACJA / MENU */
         .navbar {
@@ -67,7 +119,6 @@
             z-index: 1000;
             background: rgba(15, 23, 42, 0.4);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         }
 
@@ -82,38 +133,27 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 5px;
             cursor: pointer;
         }
 
-        .logo::after { content: ''; display: inline-block; width: 8px; height: 8px; background: #06b6d4; border-radius: 50%; box-shadow: 0 0 10px #06b6d4; }
-
         .nav-menu { display: flex; list-style: none; gap: 8px; }
-
-        .nav-item a { color: #94a3b8; text-decoration: none; font-size: 15px; font-weight: 600; padding: 10px 20px; border-radius: 30px; transition: all 0.3s ease; display: inline-block; border: 1px solid transparent; cursor: pointer; }
+        .nav-item a { color: #94a3b8; text-decoration: none; font-size: 15px; font-weight: 600; padding: 10px 20px; border-radius: 30px; transition: all 0.3s ease; display: inline-block; cursor: pointer; }
         .nav-item a:hover, .nav-item.active a { color: #ffffff; background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.3); }
         .nav-item.active a { background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(6, 182, 212, 0.2)); border-color: rgba(6, 182, 212, 0.5); }
 
-        .nav-cta { background: linear-gradient(45deg, #4f46e5, #06b6d4); color: #ffffff; border: none; padding: 12px 26px; font-size: 14px; font-weight: 700; border-radius: 30px; cursor: pointer; transition: all 0.3s ease; }
-        .nav-cta:hover { transform: translateY(-2px); }
-
-        /* WIDOKI STRON */
+        /* PODSTRONY */
         .page-view { display: none; min-height: 100vh; padding: 140px 8% 60px 8%; flex-direction: column; justify-content: center; align-items: center; text-align: center; opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
         .page-view.active-view { display: flex; opacity: 1; transform: translateY(0); }
 
         .hero-badge { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: #06b6d4; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
-
         h1 { font-size: 54px; font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
         h1 span { background: linear-gradient(45deg, #06b6d4, #4f46e5); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
         .hero-p { font-size: 18px; color: #94a3b8; max-width: 600px; margin-bottom: 40px; }
 
         /* KAFELKI */
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; width: 100%; max-width: 1200px; }
         .card { background: rgba(30, 41, 59, 0.25); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 25px; text-align: left; backdrop-filter: blur(10px); cursor: pointer; transition: all 0.3s ease; }
-        .card:hover { transform: translateY(-5px); border-color: rgba(6, 182, 212, 0.3); background: rgba(30, 41, 59, 0.4); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); }
+        .card:hover { transform: translateY(-5px); border-color: rgba(6, 182, 212, 0.3); background: rgba(30, 41, 59, 0.4); }
         .card-icon { font-size: 24px; margin-bottom: 15px; color: #06b6d4; }
         .card h3 { margin-bottom: 8px; font-size: 18px; }
         .card p { color: #94a3b8; font-size: 14px; line-height: 1.4; }
@@ -122,50 +162,27 @@
         .window-container { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); border-radius: 24px; width: 100%; max-width: 900px; padding: 40px; text-align: left; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
         .window-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 15px; }
         
-        /* LINKI PREMIUM DO KLIKANIA */
-        .premium-link-box {
-            background: linear-gradient(90deg, rgba(79, 70, 229, 0.15), rgba(6, 182, 212, 0.15));
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: 14px;
-            padding: 16px 20px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
+        /* BLOKI LINKÓW PREMIUM */
+        .premium-link-box { background: linear-gradient(90deg, rgba(79, 70, 229, 0.15), rgba(6, 182, 212, 0.15)); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 14px; padding: 16px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .premium-link-box .link-info h4 { font-size: 16px; font-weight: 700; color: #fff; }
         .premium-link-box .link-info p { font-size: 13px; color: #94a3b8; margin-top: 2px; }
-        
-        .btn-link {
-            background: #06b6d4;
-            color: #fff;
-            text-decoration: none;
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
+        .btn-link { background: #06b6d4; color: #fff; text-decoration: none; padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 8px; transition: background 0.2s; }
         .btn-link:hover { background: #0891b2; }
 
-        .content-textarea { width: 100%; height: 200px; background: rgba(10, 15, 30, 0.5); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 14px; padding: 20px; color: #f1f5f9; font-size: 16px; line-height: 1.6; resize: none; outline: none; transition: all 0.3s ease; }
-        .content-textarea:disabled { background: rgba(15, 23, 42, 0.3); color: #94a3b8; cursor: not-allowed; border-color: rgba(255,255,255,0.02); }
+        .content-textarea { width: 100%; height: 160px; background: rgba(10, 15, 30, 0.5); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 14px; padding: 20px; color: #f1f5f9; font-size: 16px; line-height: 1.6; resize: none; outline: none; }
+        .content-textarea:disabled { background: rgba(15, 23, 42, 0.3); color: #94a3b8; cursor: not-allowed; }
 
         .btn-save { margin-top: 15px; background: #4f46e5; color: #fff; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; display: none; }
-        .btn-save:hover { background: #4338ca; }
 
-        /* WIDGET LOGOWANIA W PRAWYM DOLNYM ROGU */
+        /* WIDGET ADMINA W ROGU */
         #admin-widget { position: fixed; bottom: 25px; right: 25px; z-index: 9999; }
-        .widget-trigger-btn { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8; padding: 10px 18px; border-radius: 30px; font-weight: 600; font-size: 13px; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; }
-        .widget-trigger-btn:hover { color: #fff; border-color: #06b6d4; background: rgba(6, 182, 212, 0.1); }
-
-        .auth-card { display: none; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); padding: 25px; border-radius: 20px; width: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); text-align: left; backdrop-filter: blur(20px); margin-bottom: 10px; }
-        .auth-card h4 { font-size: 16px; margin-bottom: 12px; color: #fff; display: flex; align-items: center; gap: 6px; }
+        .widget-trigger-btn { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8; padding: 10px 18px; border-radius: 30px; font-weight: 600; font-size: 13px; cursor: pointer; backdrop-filter: blur(10px); }
+        .auth-card { display: none; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); padding: 25px; border-radius: 20px; width: 280px; margin-bottom: 10px; }
+        .auth-card h4 { font-size: 16px; margin-bottom: 12px; color: #fff; }
         .auth-card input { width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; color: #fff; font-size: 14px; margin-bottom: 12px; outline: none; }
         .auth-card button { width: 100%; background: linear-gradient(45deg, #4f46e5, #06b6d4); color: #fff; border: none; padding: 10px; font-weight: 700; border-radius: 8px; cursor: pointer; }
         
-        .error-msg { color: #f43f5e; font-size: 12px; text-align: center; margin-top: 8px; display: none; }
+        .error-msg { color: #f43f5e; font-size: 13px; text-align: center; margin-top: 8px; display: none; }
         .badge-mode { font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
         .bg-view { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
         .bg-edit { background: rgba(16, 185, 129, 0.15); color: #10b981; }
@@ -175,176 +192,219 @@
         .text-emerald { color: #10b981; }
         .text-amber { color: #f59e0b; }
         .text-rose { color: #f43f5e; }
-
-        @media (max-width: 768px) { .nav-menu { display: none; } h1 { font-size: 34px; } }
     </style>
 </head>
 <body>
 
     <div class="background-animation"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
 
-    <nav class="navbar">
-        <div class="logo" onclick="switchPage('home')">Bambry</div>
-        <ul class="nav-menu">
-            <li class="nav-item" id="mi-metody"><a onclick="switchPage('metody')">Metody</a></li>
-            <li class="nav-item" id="mi-dostawcy"><a onclick="switchPage('dostawcy')">Dostawcy</a></li>
-            <li class="nav-item" id="mi-gier"><a onclick="switchPage('gier')">Cracki gier</a></li>
-            <li class="nav-item" id="mi-streaming"><a onclick="switchPage('streaming')">Streaming</a></li>
-            <li class="nav-item" id="mi-programow"><a onclick="switchPage('programow')">Cracki programów</a></li>
-        </ul>
-        <button class="nav-cta" onclick="switchPage('home')">Strona Główna</button>
-    </nav>
-
-    <main id="view-home" class="page-view active-view">
-        <div class="hero-badge">Premium Hub 2026</div>
-        <h1>Centrum Zasobów <span>Bambry</span></h1>
-        <p class="hero-p">Witaj na oficjalnej stronie bambrów.znajdziesz tutaj wszystkie zasoby aby nie wydawac pięniedzy i oszczedzać pieniadzę </p>
-
-        <div class="features-grid">
-            <div class="card" onclick="switchPage('metody')">
-                <div class="card-icon">⚡</div>
-                <h3>Metody</h3>
-                <p>Zobacz unikalne techniki optymalizacji i triki systemowe.</p>
-            </div>
-            <div class="card" onclick="switchPage('dostawcy')">
-                <div class="card-icon">🤝</div>
-                <h3>Dostawcy</h3>
-                <p>Spis dostawców pod resell.</p>
-            </div>
-            <div class="card" onclick="switchPage('gier')">
-                <div class="card-icon">🎮</div>
-                <h3>Cracki gier</h3>
-                <p>spiracone gry strona do pobierania bez wirusów . </p>
-            </div>
-            <div class="card" onclick="switchPage('streaming')">
-                <div class="card-icon">📺</div>
-                <h3>Streaming</h3>
-                <p>Darmowe platformy streamingowe(działają najlepiej z adblockerem).</p>
-            </div>
-            <div class="card" onclick="switchPage('programow')">
-                <div class="card-icon">🛠️</div>
-                <h3>Cracki programów</h3>
-                <p>Darmowe programy do montażu,audio,przerabiania zdjęc.</p>
-            </div>
+    <div id="site-lock-screen">
+        <div class="lock-box">
+            <h2>Bambry Premium Hub</h2>
+            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 20px;">Wprowadź hasło dostępowe, aby odblokować zawartość.</p>
+            <input type="password" id="access-password" placeholder="Hasło dostępu" onkeydown="if(event.key === 'Enter') unlockSite()">
+            <button class="lock-btn" onclick="unlockSite()">Wejdź do panelu</button>
+            <div class="error-msg" id="lock-error">Nieprawidłowe hasło dostępowe!</div>
         </div>
-    </main>
+    </div>
 
-    <section id="view-metody" class="page-view">
-        <div class="window-container">
-            <div class="window-header">
-                <h2><span class="text-cyan">⚡</span> Sekcja: Metody</h2>
-                <span class="badge-mode bg-view" id="badge-metody">Tylko do odczytu</span>
-            </div>
-            
-            <div class="premium-link-box">
-                <div class="link-info">
-                    <h4>🚀 Metoda: FPS BOOST</h4>
-                    <p>Oficjalny dokument optymalizacyjny wydajności.</p>
+    <div id="main-content-wrapper">
+        
+        <nav class="navbar">
+            <div class="logo" onclick="switchPage('home')">Bambry</div>
+            <ul class="nav-menu">
+                <li class="nav-item" id="mi-metody"><a onclick="switchPage('metody')">Metody</a></li>
+                <li class="nav-item" id="mi-dostawcy"><a onclick="switchPage('dostawcy')">Dostawcy</a></li>
+                <li class="nav-item" id="mi-gier"><a onclick="switchPage('gier')">Cracki gier</a></li>
+                <li class="nav-item" id="mi-streaming"><a onclick="switchPage('streaming')">Streaming</a></li>
+                <li class="nav-item" id="mi-programow"><a onclick="switchPage('programow')">Cracki programów</a></li>
+            </ul>
+            <button style="background: #f43f5e; color: #fff; padding: 10px 20px; border-radius: 30px; border: none; cursor: pointer; font-weight: 700;" onclick="lockSiteAgain()">Zablokuj stronę</button>
+        </nav>
+
+        <main id="view-home" class="page-view active-view">
+            <div class="hero-badge">Premium Hub 2026</div>
+            <h1>Centrum Zasobów <span>Bambry</span></h1>
+            <p class="hero-p">Pomyślnie autoryzowano dostęp gościa. Przeglądaj sekcje bezpośrednio z kafelków poniżej.</p>
+
+            <div class="features-grid">
+                <div class="card" onclick="switchPage('metody')">
+                    <div class="card-icon">⚡</div>
+                    <h3>Metody</h3>
+                    <p>Zobacz unikalne techniki optymalizacji i triki systemowe.</p>
                 </div>
-                <a href="https://docs.google.com/document/d/1vwzzCX95Lf1DOT0gw--YLk8mefnRPyK_/edit?usp=sharing&ouid=108043233483853844146&rtpof=true&sd=true" target="_blank" class="btn-link">Otwórz dokument ↗</a>
+                <div class="card" onclick="switchPage('dostawcy')">
+                    <div class="card-icon">🤝</div>
+                    <h3>Dostawcy</h3>
+                    <p>Spis globalnych, polecanych dostawców i rynków hurtowych.</p>
+                </div>
+                <div class="card" onclick="switchPage('gier')">
+                    <div class="card-icon">🎮</div>
+                    <h3>Cracki gier</h3>
+                    <p>Statusy zabezpieczeń, bezpieczne modyfikacje i gaming bez limitów.</p>
+                </div>
+                <div class="card" onclick="switchPage('streaming')">
+                    <div class="card-icon">📺</div>
+                    <h3>Streaming</h3>
+                    <p>Wszystko o multimediach, współdzieleniu kont i jakości 4K.</p>
+                </div>
+                <div class="card" onclick="switchPage('programow')">
+                    <div class="card-icon">🛠️</div>
+                    <h3>Cracki programów</h3>
+                    <p>Użyteczne pakiety narzędziowe bez abonamentów i ograniczeń.</p>
+                </div>
             </div>
+        </main>
 
-            <textarea class="content-textarea" id="txt-metody" disabled>Tutaj możesz dopisać dodatkowe instrukcje lub notatki dla osób przeglądających tę sekcję...</textarea>
-            <button class="btn-save" id="btn-metody" onclick="saveData('metody')">Zapisz zmiany (Admin)</button>
-        </div>
-    </section>
-
-    <section id="view-dostawcy" class="page-view">
-        <div class="window-container">
-            <div class="window-header">
-                <h2><span class="text-purple">🤝</span> Sekcja: Dostawcy</h2>
-                <span class="badge-mode bg-view" id="badge-dostawcy">Tylko do odczytu</span>
+        <section id="view-metody" class="page-view">
+            <div class="window-container">
+                <div class="window-header">
+                    <h2><span class="text-cyan">⚡</span> Sekcja: Metody</h2>
+                    <span class="badge-mode bg-view" id="badge-metody">Tylko do odczytu</span>
+                </div>
+                <div class="premium-link-box">
+                    <div class="link-info">
+                        <h4>🚀 Metoda: FPS BOOST</h4>
+                        <p>Oficjalny dokument optymalizacyjny wydajności.</p>
+                    </div>
+                    <a href="https://docs.google.com/document/d/1vwzzCX95Lf1DOT0gw--YLk8mefnRPyK_/edit?usp=sharing" target="_blank" class="btn-link">Otwórz dokument ↗</a>
+                </div>
+                <textarea class="content-textarea" id="txt-metody" disabled>Dodatkowe notatki...</textarea>
+                <button class="btn-save" id="btn-metody" onclick="saveData('metody')">Zapisz zmiany (Admin)</button>
             </div>
-            <textarea class="content-textarea" id="txt-dostawcy" disabled>Oto lista polecanych i bezpiecznych baz hurtowych:&#10;- Kontakty hurtowe Azja (Elektronika)&#10;- Serwery kluczy licencjonowanych ES/PL&#10;- Sprawdzeni partnerzy Discord/Telegram</textarea>
-            <button class="btn-save" id="btn-dostawcy" onclick="saveData('dostawcy')">Zapisz zmiany (Admin)</button>
-        </div>
-    </section>
+        </section>
 
-    <section id="view-gier" class="page-view">
-        <div class="window-container">
-            <div class="window-header">
-                <h2><span class="text-emerald">🎮</span> Sekcja: Cracki gier</h2>
-                <span class="badge-mode bg-view" id="badge-gier">Tylko do odczytu</span>
+        <section id="view-dostawcy" class="page-view">
+            <div class="window-container">
+                <div class="window-header">
+                    <h2><span class="text-purple">🤝</span> Sekcja: Dostawcy</h2>
+                    <span class="badge-mode bg-view" id="badge-dostawcy">Tylko do odczytu</span>
+                </div>
+                <textarea class="content-textarea" id="txt-dostawcy" disabled>Oto lista polecanych i bezpiecznych baz hurtowych...</textarea>
+                <button class="btn-save" id="btn-dostawcy" onclick="saveData('dostawcy')">Zapisz zmiany (Admin)</button>
             </div>
-            <textarea class="content-textarea" id="txt-gier" disabled>Baza poprawek gier i modyfikacji:&#10;- Najnowsze gry AAA - Instrukcje instalacji modów graficznych&#10;- Poprawki usuwające błędy płynności (Stuttering Fixes)</textarea>
-            <button class="btn-save" id="btn-gier" onclick="saveData('gier')">Zapisz zmiany (Admin)</button>
-        </div>
-    </section>
+        </section>
 
-    <section id="view-streaming" class="page-view">
-        <div class="window-container">
-            <div class="window-header">
-                <h2><span class="text-amber">📺</span> Sekcja: Streaming</h2>
-                <span class="badge-mode bg-view" id="badge-streaming">Tylko do odczytu</span>
+        <section id="view-gier" class="page-view">
+            <div class="window-container">
+                <div class="window-header">
+                    <h2><span class="text-emerald">🎮</span> Sekcja: Cracki gier</h2>
+                    <span class="badge-mode bg-view" id="badge-gier">Tylko do odczytu</span>
+                </div>
+                <div class="premium-link-box" style="border-color: rgba(16, 185, 129, 0.3); background: linear-gradient(90deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));">
+                    <div class="link-info">
+                        <h4>👾 Portal: SteamRIP</h4>
+                        <p>Bezpieczne, wstępnie zainstalowane gry i cracki bezpośrednie.</p>
+                    </div>
+                    <a href="https://steamrip.com" target="_blank" class="btn-link" style="background: #10b981;">Przejdź do SteamRIP ↗</a>
+                </div>
+                <textarea class="content-textarea" id="txt-gier" disabled>Baza poprawek gier i modyfikacji...</textarea>
+                <button class="btn-save" id="btn-gier" onclick="saveData('gier')">Zapisz zmiany (Admin)</button>
             </div>
-            <textarea class="content-textarea" id="txt-streaming" disabled>Konfiguracje odtwarzaczy i platform multimedialnych:&#10;- Ustawienia zaawansowanego buforowania dla filmów 4K UltraHD&#10;- Lista darmowych wtyczek IPTV</textarea>
-            <button class="btn-save" id="btn-streaming" onclick="saveData('streaming')">Zapisz zmiany (Admin)</button>
-        </div>
-    </section>
+        </section>
 
-    <section id="view-programow" class="page-view">
-        <div class="window-container">
-            <div class="window-header">
-                <h2><span class="text-rose">🛠️</span> Sekcja: Cracki programów</h2>
-                <span class="badge-mode bg-view" id="badge-programow">Tylko do odczytu</span>
+        <section id="view-streaming" class="page-view">
+            <div class="window-container">
+                <div class="window-header">
+                    <h2><span class="text-amber">📺</span> Sekcja: Streaming</h2>
+                    <span class="badge-mode bg-view" id="badge-streaming">Tylko do odczytu</span>
+                </div>
+                <div class="premium-link-box" style="border-color: rgba(245, 158, 11, 0.3); background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), rgba(79, 70, 229, 0.15));">
+                    <div class="link-info">
+                        <h4>🎬 Serwis: Filman.cc</h4>
+                        <p>Dostęp do najnowszych filmów i seriali online bez opłat.</p>
+                    </div>
+                    <a href="https://filman.cc" target="_blank" class="btn-link" style="background: #f59e0b;">Otwórz Filman ↗</a>
+                </div>
+                <textarea class="content-textarea" id="txt-streaming" disabled>Konfiguracje odtwarzaczy i platform multimedialnych...</textarea>
+                <button class="btn-save" id="btn-streaming" onclick="saveData('streaming')">Zapisz zmiany (Admin)</button>
             </div>
-            <textarea class="content-textarea" id="txt-programow" disabled>Legalne aktywacje i skrypty automatyzacji open-source:&#10;- Skrypty czyszczące system ze śmieci telemetrycznych&#10;- Aktywatory systemów deweloperskich</textarea>
-            <button class="btn-save" id="btn-programow" onclick="saveData('programow')">Zapisz zmiany (Admin)</button>
-        </div>
-    </section>
+        </section>
 
-    <div id="admin-widget">
-        <div class="auth-card" id="auth-panel">
-            <h4>🔒 Logowanie Administratora</h4>
-            <input type="password" id="admin-pass" placeholder="Wpisz hasło admina" onkeydown="if(event.key === 'Enter') loginAdmin()">
-            <button onclick="loginAdmin()">Autoryzuj</button>
-            <div class="error-msg" id="auth-error">Błędne hasło!</div>
+        <section id="view-programow" class="page-view">
+            <div class="window-container">
+                <div class="window-header">
+                    <h2><span class="text-rose">🛠️</span> Sekcja: Cracki programów</h2>
+                    <span class="badge-mode bg-view" id="badge-programow">Tylko do odczytu</span>
+                </div>
+                <textarea class="content-textarea" id="txt-programow" disabled>Legalne aktywacje i skrypty automatyzacji open-source...</textarea>
+                <button class="btn-save" id="btn-programow" onclick="saveData('programow')">Zapisz zmiany (Admin)</button>
+            </div>
+        </section>
+
+        <div id="admin-widget">
+            <div class="auth-card" id="auth-panel">
+                <h4>🔒 Panel Zarządzania</h4>
+                <input type="password" id="admin-pass" placeholder="Hasło Administratora" onkeydown="if(event.key === 'Enter') loginAdmin()">
+                <button onclick="loginAdmin()">Modyfikuj Treść</button>
+                <div class="error-msg" id="auth-error">Błędny klucz admina!</div>
+            </div>
+            <button class="widget-trigger-btn" id="widget-btn" onclick="toggleAuthPanel()">Panel Twórcy</button>
         </div>
-        <button class="widget-trigger-btn" id="widget-btn" onclick="toggleAuthPanel()"> Zaloguj jako Admin</button>
+
     </div>
 
     <script>
+        const HASLO_DLA_ZNAJOMYCH = "bambry2026";
+        const HASLO_ADMINA = "superadmin2026";
+
         let isAdmin = false;
 
-        function toggleAuthPanel() {
-            if (isAdmin) {
-                logoutAdmin();
-                return;
+        function unlockSite() {
+            const pass = document.getElementById('access-password').value;
+            const error = document.getElementById('lock-error');
+            
+            if (pass === HASLO_DLA_ZNAJOMYCH || pass === HASLO_ADMINA) {
+                error.style.display = "none";
+                document.getElementById('site-lock-screen').style.display = "none";
+                document.getElementById('main-content-wrapper').style.display = "block";
+                if (pass === HASLO_ADMINA) { forceAdminLogin(); }
+            } else {
+                error.style.display = "block";
+                document.getElementById('access-password').value = "";
             }
+        }
+
+        function lockSiteAgain() {
+            logoutAdmin();
+            document.getElementById('main-content-wrapper').style.display = "none";
+            document.getElementById('site-lock-screen').style.display = "flex";
+            document.getElementById('access-password').value = "";
+            switchPage('home');
+        }
+
+        function toggleAuthPanel() {
+            if (isAdmin) { logoutAdmin(); return; }
             const panel = document.getElementById('auth-panel');
             panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-            if(panel.style.display === 'block') document.getElementById('admin-pass').focus();
         }
 
         function loginAdmin() {
             const pass = document.getElementById('admin-pass').value;
             const error = document.getElementById('auth-error');
             
-            if (pass === "Antek123xdxd") {
-                isAdmin = true;
+            if (pass === HASLO_ADMINA) {
                 error.style.display = "none";
                 document.getElementById('auth-panel').style.display = "none";
                 document.getElementById('admin-pass').value = "";
-                
-                document.getElementById('widget-btn').innerHTML = "🔒 Wyloguj Admina";
-                document.getElementById('widget-btn').style.borderColor = "#10b981";
-
-                setEditMode(true);
-                alert("Zalogowano jako Administrator! Możesz teraz edytować i dodawać treści.");
+                forceAdminLogin();
             } else {
                 error.style.display = "block";
                 document.getElementById('admin-pass').value = "";
             }
         }
 
+        function forceAdminLogin() {
+            isAdmin = true;
+            document.getElementById('widget-btn').innerHTML = "🔒 Wyloguj Admina";
+            document.getElementById('widget-btn').style.borderColor = "#10b981";
+            setEditMode(true);
+        }
+
         function logoutAdmin() {
             isAdmin = false;
-            document.getElementById('widget-btn').innerHTML = "Key: Zaloguj jako Admin";
-            document.getElementById('widget-btn').style.borderColor = "rgba(255, 255, 255, 0.1)";
+            document.getElementById('widget-btn').innerHTML = "Panel Twórcy";
             setEditMode(false);
-            alert("Wylogowano. Strona wróciła do trybu przeglądania.");
         }
 
         function setEditMode(enable) {
@@ -353,43 +413,37 @@
                 const textarea = document.getElementById('txt-' + sec);
                 const saveBtn = document.getElementById('btn-' + sec);
                 const badge = document.getElementById('badge-' + sec);
-
-                if (enable) {
-                    textarea.removeAttribute('disabled');
-                    saveBtn.style.display = 'inline-block';
-                    badge.innerHTML = "Tryb Edycji Admina";
-                    badge.className = "badge-mode bg-edit";
-                } else {
-                    textarea.setAttribute('disabled', 'true');
-                    saveBtn.style.display = 'none';
-                    badge.innerHTML = "Tylko do odczytu";
-                    badge.className = "badge-mode bg-view";
+                if (textarea && saveBtn && badge) {
+                    if (enable) {
+                        textarea.removeAttribute('disabled');
+                        saveBtn.style.display = 'inline-block';
+                        badge.innerHTML = "Tryb Edycji Admina";
+                        badge.className = "badge-mode bg-edit";
+                    } else {
+                        textarea.setAttribute('disabled', 'true');
+                        saveBtn.style.display = 'none';
+                        badge.innerHTML = "Tylko do odczytu";
+                        badge.className = "badge-mode bg-view";
+                    }
                 }
             });
         }
 
-        function saveData(sectionName) {
-            alert("Zmiany w sekcji [" + sectionName + "] zostały pomyślnie zapisane!");
-        }
+        function saveData(sectionName) { alert("Zapisano zmiany w sekcji " + sectionName); }
 
         function switchPage(pageId) {
             const allViews = document.querySelectorAll('.page-view');
             allViews.forEach(view => { view.classList.remove('active-view'); });
-
             const allMenuItems = document.querySelectorAll('.nav-item');
             allMenuItems.forEach(item => { item.classList.remove('active'); });
-
             const targetView = document.getElementById('view-' + pageId);
             if (targetView) { targetView.classList.add('active-view'); }
-
             if (pageId !== 'home') {
-                let menuItemId = 'mi-' + pageId;
-                let activeMenuItem = document.getElementById(menuItemId);
+                let activeMenuItem = document.getElementById('mi-' + pageId);
                 if (activeMenuItem) { activeMenuItem.classList.add('active'); }
             }
             document.getElementById('auth-panel').style.display = "none";
         }
     </script>
-
 </body>
 </html>
